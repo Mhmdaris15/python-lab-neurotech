@@ -1,24 +1,24 @@
-# Локальные проверки и настройка VS Code
+# Local checks and VS Code setup
 
-Сначала установите инструменты и проверьте одну задачу из терминала. Затем настройте подсказки и форматирование в VS Code.
+First install the tools and check an assignment from the terminal. Then configure editor hints and formatting in VS Code.
 
-## 1. Установка и запуск проверок
+## 1. Install and run the checks
 
-### Шаг 1. Установите Python
+### Step 1. Install Python
 
-Установите [Python 3.14](https://www.python.org/downloads/). Для задач на чтение памяти нужна именно версия 3.14.7.
+Install [Python 3.14](https://www.python.org/downloads/). Assignments involving memory reading require version 3.14.7.
 
-На Windows включите **Add python.exe to PATH**, когда установщик предлагает этот пункт. После установки откройте новый терминал.
+On Windows, enable **Add python.exe to PATH** when prompted by the installer. Open a new terminal after installation.
 
-### Шаг 2. Откройте терминал в папке репозитория
+### Step 2. Open a terminal in the repository folder
 
-Используйте локальную папку своего учебного репозитория. В ней должны лежать `requirements.txt`, `pyproject.toml` и папки модулей.
+Use the local folder for your course repository. It should contain `requirements.txt`, `pyproject.toml`, and the module folders.
 
 **Windows**
 
-1. Откройте папку репозитория в Проводнике.
-2. Введите `cmd` в адресной строке и нажмите Enter.
-3. Проверьте версию Python:
+1. Open the repository folder in File Explorer.
+2. Enter `cmd` in the address bar and press Enter.
+3. Check the Python version:
 
 ```bat
 python --version
@@ -26,28 +26,28 @@ python --version
 
 **macOS**
 
-1. Откройте приложение Terminal.
-2. Перейдите в папку репозитория. Замените путь в примере на свой:
+1. Open Terminal.
+2. Change to the repository folder, replacing the example path with your own:
 
 ```bash
-cd "/путь/к/репозиторию"
+cd "/path/to/repository"
 ```
 
-1. Проверьте версию Python:
+3. Check the Python version:
 
 ```bash
 python3 --version
 ```
 
-Команда должна показать Python 3.14.7. Если она не найдена или показывает старую версию, сначала проверьте установку Python.
+The command should show Python 3.14.7. If it is not found or shows an older version, check your Python installation first.
 
-Все дальнейшие команды выполняйте из этой папки.
+Run all remaining commands from this folder.
 
-### Шаг 3. Создайте окружение
+### Step 3. Create a virtual environment
 
-Окружение хранит библиотеки отдельно для этого репозитория. Создать его нужно один раз.
+A virtual environment keeps libraries separate for this repository. You only need to create it once.
 
-Если `.venv` на Python 3.14 уже есть, переходите к шагу 4. Если окружение создано на старом Python, переименуйте его папку в `.venv-old` и создайте новое.
+If `.venv` already exists and uses Python 3.14, go to Step 4. If it was created with an older Python version, rename its folder to `.venv-old` and create a new one.
 
 **Windows**
 
@@ -61,11 +61,9 @@ python -m venv .venv
 python3 -m venv .venv
 ```
 
+### Step 4. Activate the environment
 
-
-### Шаг 4. Активируйте окружение
-
-**Windows — в открытом окне cmd**
+**Windows — in the open cmd window**
 
 ```bat
 .venv\Scripts\activate.bat
@@ -77,104 +75,98 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-В начале строки терминала обычно появится `(.venv)`. После активации на обеих системах используйте команду `python`.
+You will usually see `(.venv)` at the start of the terminal prompt. After activation, use the `python` command on both systems.
 
-В каждом новом терминале снова переходите в папку репозитория и активируйте окружение. Создавать его заново не нужно.
+In each new terminal, change to the repository folder and activate the environment again. You do not need to recreate it.
 
-### Шаг 5. Установите инструменты
+### Step 5. Install the tools
 
-1. Обновите pip — программу для установки пакетов:
+1. Upgrade pip, the package installer:
 
 ```bash
 python -m pip install --upgrade pip
 ```
 
-1. Установите зависимости репозитория:
+2. Install the repository dependencies:
 
 ```bash
 python -m pip install --upgrade -r requirements.txt
 ```
 
-Будут установлены:
+This installs:
 
-- **Ruff** — проверка и форматирование кода.
-- **mypy** — проверка типов.
-- **pytest** и **pytest-timeout** — запуск тестов с ограничением времени.
+- **Ruff** — code checking and formatting.
+- **mypy** — type checking.
+- **pytest** and **pytest-timeout** — running tests with a time limit.
 
-Настройки проверок уже находятся в `pyproject.toml`. Запись `python -m` запускает инструмент через Python из активного окружения.
+Check settings are already in `pyproject.toml`. The `python -m` form runs each tool using Python from the active environment.
 
-### Шаг 6. Проверьте решение
+### Step 6. Check your solution
 
-В примерах используется первая задача второго модуля. Замените `02_DataStructures/01_Min_To_Drop` на папку своей задачи.
+The examples use the first assignment in Module 2. Replace `02_DataStructures/01_Min_To_Drop` with your assignment folder.
 
-1. Отформатируйте код. Эта команда изменяет оформление файлов:
+1. Format the code. This command changes file formatting:
 
 ```bash
 python -m ruff format 02_DataStructures/01_Min_To_Drop
 ```
 
-1. Запустите линтер:
+2. Run the linter:
 
 ```bash
 python -m ruff check 02_DataStructures/01_Min_To_Drop
 ```
 
-1. Проверьте типы:
+3. Check types:
 
 ```bash
 python -m mypy 02_DataStructures/01_Min_To_Drop
 ```
 
-1. Запустите тесты:
+4. Run tests:
 
 ```bash
 python -m pytest --timeout=10 -q 02_DataStructures/01_Min_To_Drop
 ```
 
-Если проверка нашла ошибку, исправьте её и повторите проверку. Выполняйте эти четыре команды перед отправкой решения. На сервере оформление проверяется через `ruff format --check`, а типы — через mypy.
+If a check reports an error, fix it and run the check again. Run all four commands before submitting. On the server, formatting is checked with `ruff format --check` and types with mypy.
 
-## 2. Настройка VS Code (опционально, но ООООЧЕНЬ рекомендую)
+## 2. VS Code setup (optional, but highly recommended)
 
+### Step 1. Open the repository
 
+1. Install [VS Code](https://code.visualstudio.com/) if you do not already have it.
+2. Choose **File → Open Folder**.
+3. Open the full course repository folder containing `requirements.txt` and `pyproject.toml`.
 
-### Шаг 1. Откройте репозиторий
+### Step 2. Install extensions
 
-1. Установите [VS Code](https://code.visualstudio.com/), если его ещё нет.
-2. Выберите **File → Open Folder**.
-3. Откройте всю папку учебного репозитория, где лежат `requirements.txt` и `pyproject.toml`.
+Open **Extensions** in the sidebar. Find each extension and click **Install**:
 
+1. [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) by Microsoft — environment selection and running Python.
+2. [Pyrefly — Python Language Tooling](https://marketplace.visualstudio.com/items?itemName=meta.pyrefly) by Meta — editor hints and type errors.
+3. [Ruff](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff) by Astral — linting and formatting.
 
+You do not need to install Pyrefly with pip; it is included in the extension.
 
-### Шаг 2. Установите расширения
+If Pylance is installed and enabled, open its page, click the gear icon, and choose **Disable (Workspace)** to avoid duplicate hints.
 
-Откройте раздел **Extensions** в боковой панели. Найдите и установите каждое расширение кнопкой **Install**:
+### Step 3. Select the environment
 
-1. [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) от Microsoft — выбор окружения и запуск Python.
-2. [Pyrefly — Python Language Tooling](https://marketplace.visualstudio.com/items?itemName=meta.pyrefly) от Meta — подсказки и ошибки типов в редакторе.
-3. [Ruff](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff) от Astral — линтер и форматирование.
+1. Open the Command Palette: **Ctrl+Shift+P** on Windows or **⌘⇧P** on macOS.
+2. Find **Python: Select Interpreter**.
+3. Select `.venv` from your repository.
 
-Pyrefly отдельно через pip устанавливать не нужно: он входит в расширение.
-
-Если установлен и включён Pylance, откройте его страницу, нажмите на шестерёнку и выберите **Disable (Workspace)**, чтобы подсказки не дублировались.
-
-### Шаг 3. Выберите окружение
-
-1. Откройте палитру команд: **Ctrl+Shift+P** на Windows или **⌘⇧P** на macOS.
-2. Найдите команду **Python: Select Interpreter**.
-3. Выберите `.venv` из своего репозитория.
-
-Если окружения нет в списке, выберите **Enter interpreter path** и найдите файл внутри репозитория:
+If the environment is not listed, choose **Enter interpreter path** and locate the file inside the repository:
 
 - Windows: `.venv\Scripts\python.exe`.
 - macOS: `.venv/bin/python`.
 
+### Step 4. Enable formatting on save
 
-
-### Шаг 4. Включите форматирование при сохранении
-
-1. Снова откройте палитру команд.
-2. Выберите **Preferences: Open Workspace Settings (JSON)**.
-3. В открывшемся файле `.vscode/settings.json` укажите настройки:
+1. Open the Command Palette again.
+2. Choose **Preferences: Open Workspace Settings (JSON)**.
+3. Add these settings to the opened `.vscode/settings.json` file:
 
 ```json
 {
@@ -187,16 +179,14 @@ Pyrefly отдельно через pip устанавливать не нужн
 }
 ```
 
-Если в файле уже есть настройки, добавьте эти поля, сохранив остальные. Если раздел `[python]` уже существует, добавьте настройки форматирования внутрь него.
+If the file already has settings, add these fields and keep the existing ones. If a `[python]` section already exists, add the formatting settings inside it.
 
-1. Сохраните файл: **Ctrl+S** на Windows или **⌘S** на macOS.
+4. Save the file: **Ctrl+S** on Windows or **⌘S** on macOS.
 
+### Step 5. Check the setup
 
+1. Open the Python solution file.
+2. Save it. Ruff will format it automatically if needed.
+3. Check **View → Problems**. Hover over an underlined error to see details.
 
-### Шаг 5. Проверьте настройку
-
-1. Откройте Python-файл с решением.
-2. Сохраните его. Ruff автоматически исправит оформление, если это нужно.
-3. Посмотрите сообщения в **View → Problems**. Подробности подчёркнутой ошибки также можно прочитать, наведя на неё курсор.
-
-Pyrefly даёт подсказки во время работы, но иногда оценивает код иначе, чем mypy. Перед отправкой решения запускайте проверки из шага 6 первой части, даже если в редакторе нет ошибок.
+Pyrefly provides hints as you work, but it may sometimes assess code differently from mypy. Before submitting, run the checks from Step 6 in Part 1, even if the editor shows no errors.

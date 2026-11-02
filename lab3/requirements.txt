@@ -1,0 +1,7 @@
+numpy>=2.0
+matplotlib>=3.9
+scikit-learn>=1.5
+threadpoolctl>=3.5
+pytest>=8.0
+jupyterlab>=4.0
+nbclient>=0.10

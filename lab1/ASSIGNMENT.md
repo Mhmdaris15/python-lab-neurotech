@@ -1,115 +1,115 @@
-# Лабораторная № 1. Поиск по каталогу
+# Lab 1: Catalog Search
 
-Напишите консольную программу для поиска по каталогу. Программа запускается командой `python main.py`, принимает команды и завершается командой `exit`.
+Write a command-line program for searching a catalog. Run it with `python main.py`; it accepts commands and exits when given the `exit` command.
 
-## Вариант
+## Variant
 
-Параметры программы задаются назначенным вариантом:
+The program parameters are specified by your assigned variant:
 
 ```text
-данные | поля | обработка | поиск | выдача | подсветка | рейтинг
+dataset | fields | processing | search | results | highlighting | ratings
 ```
 
 
-| Параметр  | Значения                                                                                                                                                                                          |
+| Parameter | Values                                                                                                                                                                                           |
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Данные    | `books-json` — книги; `artworks-csv` — искусство; `airports-csv` — аэропорты; `earthquakes-jsonl` — землетрясения; `chess-json` — дебюты; `exoplanets-csv` — экзопланеты; `papers-jsonl` — статьи |
-| Поля      | `title` — заголовок; `all` — все возможные текстовые поля                                                                                                                                         |
-| Обработка | `raw` — без изменений; `fold` — без учёта регистра; `clean` — своя очистка                                                                                                                        |
-| Поиск     | `substr` — подстрока; `words-all` — все слова; `words-any` — любое слово; `fuzzy-words` — все слова с опечатками; `fuzzy-text` — сходство с текстом поля целиком с опечатками                     |
-| Выдача    | `ranked` — все совпадения по релевантности; `top10` — до десяти лучших; `best` — одно лучшее                                                                                                      |
-| Подсветка | `plain` — без подсветки; `mark` — выделять совпадения любым заметным способом                                                                                                                     |
-| Рейтинг   | `none` — без оценок; `stars` — оценки записей от 1 до 5; `boost` — оценки также влияют на порядок выдачи                                                                                          |
+| Dataset   | `books-json` — books; `artworks-csv` — art; `airports-csv` — airports; `earthquakes-jsonl` — earthquakes; `chess-json` — chess openings; `exoplanets-csv` — exoplanets; `papers-jsonl` — papers |
+| Fields    | `title` — title; `all` — all available text fields                                                                                                                                               |
+| Processing| `raw` — unchanged; `fold` — case-insensitive; `clean` — custom normalization                                                                                                                      |
+| Search    | `substr` — substring; `words-all` — all words; `words-any` — any word; `fuzzy-words` — all words with typos; `fuzzy-text` — typo-tolerant similarity against the whole field text                 |
+| Results   | `ranked` — all matches by relevance; `top10` — up to the ten best; `best` — the single best match                                                                                                |
+| Highlight | `plain` — no highlighting; `mark` — highlight matches in any visible way                                                                                                                         |
+| Rating    | `none` — no ratings; `stars` — rate records from 1 to 5; `boost` — ratings also affect result order                                                                                               |
 
 
-Для `clean` самостоятельно выберите правила очистки. Запрос и текст записей обрабатывайте одинаково.
+For `clean`, choose your own normalization rules. Process the query and record text the same way.
 
-## Вывод
+## Output
 
-`show` выводит все загруженные записи со всеми полями, без фильтров и ограничения количества записей. Формат вывода произвольный, можно как в виде таблицы, так и в виде карточек
+`show` displays every loaded record with all fields, without filters or a result limit. Choose any output format, such as a table or cards.
 
-`search` выводит такой же результат, что и `show`, но только для записей, подходящих под запрос и фильтры. Дополнительно показываются релевантность, оценка пользователя в режимах `stars` и `boost`, итоговые баллы в режиме `boost`. Указываются число найденных и показанных записей и время поиска. В режиме `mark` совпадения выделяются в соответствующих полях карточки.
+`search` displays records in the same format as `show`, but only those matching the query and filters. Also show relevance, the user's rating in `stars` and `boost` modes, and the final score in `boost` mode. Report the number of matching and displayed records and the search time. In `mark` mode, highlight matches in the relevant card fields.
 
-## Релевантность и оценки
+## Relevance and ratings
 
-Релевантность вычисляется по запросу и тексту записи. В режимах `none` и `stars` записи сортируются по убыванию релевантности. Формулу выберите самостоятельно и опишите в отчёте.
+Calculate relevance from the query and record text. In `none` and `stars` modes, sort records by descending relevance. Choose a formula and describe it in your report.
 
-Для приближённого поиска выберите меру сходства строк от 0 до 1, где 1 означает полное совпадение. `threshold` задаёт минимальное допустимое сходство. Релевантность и сходство могут вычисляться по разным формулам.
+For approximate search, choose a string similarity measure from 0 to 1, where 1 means an exact match. `threshold` sets the minimum acceptable similarity. Relevance and similarity may use different formulas.
 
-Оценку от 1 до 5 ставит пользователь командой `rate`. В режиме `stars` она сохраняется и выводится. В режиме `boost` она даёт прибавку к релевантности при сортировке; формулу прибавки также опишите в отчёте. Релевантность, оценка и итоговые баллы выводятся отдельно. Оценка не может добавить в выдачу запись, не подходящую под запрос или фильтры.
+The user assigns a rating from 1 to 5 with the `rate` command. In `stars` mode, store and display it. In `boost` mode, it adds to relevance for sorting; describe the boost formula in your report. Display relevance, rating, and final score separately. A rating must not add a record that does not match the query or filters.
 
-## Команды
+## Commands
 
 
-| Команда                                   | Действие                                                                |
+| Command                                   | Action                                                                  |
 | ----------------------------------------- | ----------------------------------------------------------------------- |
-| `help`                                    | Список команд                                                           |
-| `load <файл>`                             | Загрузить данные; сбросить фильтры, порог, последнюю выдачу и оценки    |
-| `show`                                    | Вывести все записи карточками                                           |
-| `fields`                                  | Показать поля, типы и допустимые фильтры                                |
-| `filter add <поле> <оператор> <значение>` | Добавить условие                                                        |
-| `filter list`                             | Показать условия с номерами от 1                                        |
-| `filter remove <номер>`                   | Удалить условие и перенумеровать остальные                              |
-| `filter clear`                            | Удалить все условия                                                     |
-| `threshold <число>`                       | Установить порог в интервале (0, 1]; только для приближённого поиска    |
-| `search "<запрос>"`                       | Вывести результаты поиска; пустой запрос применяет только фильтры       |
-| `save <файл>`                             | Сохранить последнюю показанную выдачу в текстовый файл                  |
-| `rate <id> <1..5>`                        | Оценить запись из последней показанной выдачи; только `stars` и `boost` |
-| `ratings`                                 | Показать оценки; только `stars` и `boost`                               |
-| `exit`                                    | Завершить программу                                                     |
+| `help`                                    | List commands                                                           |
+| `load <file>`                             | Load data; reset filters, threshold, last results, and ratings          |
+| `show`                                    | Display all records as cards                                            |
+| `fields`                                  | Show fields, types, and allowed filters                                 |
+| `filter add <field> <operator> <value>`   | Add a condition                                                         |
+| `filter list`                             | List conditions, numbered starting at 1                                 |
+| `filter remove <number>`                  | Remove a condition and renumber the rest                                |
+| `filter clear`                            | Remove all conditions                                                   |
+| `threshold <number>`                      | Set threshold in (0, 1]; approximate search only                        |
+| `search "<query>"`                        | Display search results; an empty query applies only filters              |
+| `save <file>`                             | Save the last displayed results to a text file                          |
+| `rate <id> <1..5>`                        | Rate a record in the last results; `stars` and `boost` only              |
+| `ratings`                                 | Show ratings; `stars` and `boost` only                                   |
+| `exit`                                    | Exit the program                                                        |
 
 
 
 
-## Фильтры
+## Filters
 
 
-| Оператор   | Значение       |
+| Operator   | Meaning        |
 | ---------- | -------------- |
-| `eq`       | Равно          |
-| `ne`       | Не равно       |
-| `lt`       | Меньше         |
-| `le`       | Не больше      |
-| `gt`       | Больше         |
-| `ge`       | Не меньше      |
-| `contains` | Содержит текст |
+| `eq`       | Equal          |
+| `ne`       | Not equal      |
+| `lt`       | Less than      |
+| `le`       | Less than or equal |
+| `gt`       | Greater than   |
+| `ge`       | Greater than or equal |
+| `contains` | Contains text  |
 
 
-- Числовые поля поддерживают `eq`, `ne`, `lt`, `le`, `gt`, `ge`.
-- Строковые поля поддерживают `eq`, `ne`, `contains`.
-- Логические поля поддерживают `eq`, `ne`; значения — `true` и `false`.
-- Все фильтры применяются одновременно, до ограничения количества результатов. Пустое поле не проходит фильтр.
-- Изменение настроек действует при следующем `search`.
-
-
-
-## Общие требования
-
-- До загрузки данных доступны только `help`, `load`, `exit`.
-- Аргументы с пробелами заключаются в кавычки.
-- Ошибка команды выводит понятное сообщение и не завершает программу.
-- Оценки хранятся в памяти до выхода или новой загрузки, привязаны к ID и сохраняются при смене запроса. Повторная оценка заменяет предыдущую.
+- Numeric fields support `eq`, `ne`, `lt`, `le`, `gt`, `ge`.
+- String fields support `eq`, `ne`, `contains`.
+- Boolean fields support `eq`, `ne`; values are `true` and `false`.
+- All filters are applied together, before limiting the number of results. Empty fields do not pass a filter.
+- Setting changes take effect on the next `search`.
 
 
 
-## Пример работы
+## General requirements
 
-Вариант: `airports-csv | all | fold | words-all | top10 | mark | boost`. В файле `airports.csv` четыре записи; команда `show` показывает их целиком.
+- Before data is loaded, only `help`, `load`, and `exit` are available.
+- Put arguments containing spaces in quotes.
+- A command error should display a clear message and must not terminate the program.
+- Keep ratings in memory until exit or the next load. Associate them with IDs and retain them when the query changes. A new rating replaces the previous one.
+
+
+
+## Example session
+
+Variant: `airports-csv | all | fold | words-all | top10 | mark | boost`. The file `airports.csv` contains four records; `show` displays them in full.
 
 ```text
 $ python main.py
-Поиск по каталогу. Команды: help. Выход: exit.
+Catalog search. Commands: help. Exit: exit.
 
 
-# Загрузка: каждая запись — отдельная карточка со всеми полями.
+# Load: each record is displayed as a card with all fields.
 
 search> load airports.csv
-Загружено записей: 4
+Loaded records: 4
 
 search> fields
-Поиск по полям: title, city, keywords
+Search fields: title, city, keywords
 
-Поле          Тип    Фильтры
+Field         Type   Filters
 ------------  -----  -----------------
 id            str    -
 title         str    -
@@ -123,11 +123,11 @@ longitude     float  eq ne lt le gt ge
 scheduled     bool   eq ne
 url           str    -
 
-eq = равно; ne = не равно; contains = содержит текст.
-lt <; le <=; gt >; ge >=. true = да; false = нет.
+eq = equal; ne = not equal; contains = contains text.
+lt <; le <=; gt >; ge >=. true = yes; false = no.
 
 search> show
-Записей: 4
+Records: 4
 
 [KBOS] Boston Logan International Airport
   city: Boston
@@ -174,10 +174,10 @@ search> show
   url: https://ourairports.com/airports/EGTE/
 
 
-# Поиск без учёта регистра; совпадения выделены [[так]].
+# Case-insensitive search; matches are highlighted [[like this]].
 
 search> search "bOsToN"
-Найдено: 3; показано: 3
+Found: 3; displayed: 3
 
 [KBOS] [[Boston]] Logan International Airport
   city: [[Boston]]
@@ -451,6 +451,6 @@ search> exit
 
 
 
-## Отчёт
+## Report
 
-Загрузите отчёт по лабораторной работе (`README.md` и файлы работы) **обязательно в директорию** `lab1` **вашего собственного репозитория с домашними заданиями, рядом с 01_Basic, 02_Data_Structures, ... (student-xxx)**.
+Submit the lab report (`README.md` and project files) **in the `lab1` directory of your own homework repository**, alongside `01_Basic`, `02_Data_Structures`, and so on (`student-xxx`).

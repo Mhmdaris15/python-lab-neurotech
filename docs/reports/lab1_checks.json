@@ -1,0 +1,12 @@
+{
+  "rows": 8000,
+  "columns": 11,
+  "airport_matches": 3686,
+  "shown": 10,
+  "rated_id": "US-10787",
+  "rated_first": "US-10787",
+  "filtered_shown": 10,
+  "normalization": "São-Paulo -> sao paulo",
+  "reset_check": true,
+  "save_check": true
+}

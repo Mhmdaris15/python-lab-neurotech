@@ -1,0 +1,178 @@
+{
+  "seed": 42,
+  "rows": 8000,
+  "observed_X": 6550,
+  "missing_X": 1450,
+  "hidden_X_count": 655,
+  "duplicate_rows_added": 400,
+  "imputation": [
+    {
+      "method": "mean / среднее",
+      "MAE_ft": 1136.778615853777,
+      "MSE_ft2": 2595470.6562681533
+    },
+    {
+      "method": "median / медиана",
+      "MAE_ft": 993.7282442748092,
+      "MSE_ft2": 2847967.1145038167
+    },
+    {
+      "method": "group median / медиана группы",
+      "MAE_ft": 981.1916030534351,
+      "MSE_ft2": 2866265.5721374047
+    }
+  ],
+  "duplicates": [
+    {
+      "stage": "before / до",
+      "rows": 8000,
+      "mean_X_ft": 1302.377251908397
+    },
+    {
+      "stage": "after adding / после добавления",
+      "rows": 8400,
+      "mean_X_ft": 1301.262080975185
+    },
+    {
+      "stage": "all columns / все поля",
+      "rows": 8000,
+      "mean_X_ft": 1302.377251908397
+    },
+    {
+      "stage": "id",
+      "rows": 8000,
+      "mean_X_ft": 1302.377251908397
+    },
+    {
+      "stage": "country / страна",
+      "rows": 193,
+      "mean_X_ft": 1225.9597315436242
+    }
+  ],
+  "statistics": {
+    "range": 15187.0,
+    "mean": 1302.377251908397,
+    "median": 730.0,
+    "variance_ddof0": 2755656.7072993196,
+    "std_ddof0": 1660.0170804239694
+  },
+  "filter_AND": 2456,
+  "filter_OR": 5814,
+  "only_OR": 3358,
+  "top_orders_equal": false,
+  "groups": [
+    {
+      "kind": "small_airport",
+      "group_count": 3949,
+      "share": 0.493625,
+      "missing_X": 480,
+      "group_mean": 1354.5165753819545,
+      "group_median": 830.0
+    },
+    {
+      "kind": "heliport",
+      "group_count": 2194,
+      "share": 0.27425,
+      "missing_X": 659,
+      "group_mean": 1307.0651465798046,
+      "group_median": 598.0
+    },
+    {
+      "kind": "closed",
+      "group_count": 1274,
+      "share": 0.15925,
+      "missing_X": 270,
+      "group_mean": 1275.1205179282867,
+      "group_median": 689.5
+    },
+    {
+      "kind": "medium_airport",
+      "group_count": 364,
+      "share": 0.0455,
+      "missing_X": 18,
+      "group_mean": 1079.6965317919075,
+      "group_median": 458.0
+    },
+    {
+      "kind": "large_airport",
+      "group_count": 113,
+      "share": 0.014125,
+      "missing_X": 0,
+      "group_mean": 922.6814159292036,
+      "group_median": 140.0
+    },
+    {
+      "kind": "seaplane_base",
+      "group_count": 100,
+      "share": 0.0125,
+      "missing_X": 23,
+      "group_mean": 699.3766233766233,
+      "group_median": 580.0
+    },
+    {
+      "kind": "balloonport",
+      "group_count": 6,
+      "share": 0.00075,
+      "missing_X": 0,
+      "group_mean": 2249.5,
+      "group_median": 940.0
+    }
+  ],
+  "boxplots": [
+    {
+      "kind": "closed",
+      "median": 689.5,
+      "q1": 197.0,
+      "q3": 1489.0,
+      "minimum": -59.0,
+      "maximum": 12169.0,
+      "IQR": 1292.0,
+      "range": 12228.0
+    },
+    {
+      "kind": "heliport",
+      "median": 598.0,
+      "q1": 140.0,
+      "q3": 1517.5,
+      "minimum": -72.0,
+      "maximum": 13980.0,
+      "IQR": 1377.5,
+      "range": 14052.0
+    },
+    {
+      "kind": "large_airport",
+      "median": 140.0,
+      "q1": 39.0,
+      "q3": 755.0,
+      "minimum": 5.0,
+      "maximum": 12552.0,
+      "IQR": 716.0,
+      "range": 12547.0
+    },
+    {
+      "kind": "medium_airport",
+      "median": 458.0,
+      "q1": 84.0,
+      "q3": 1303.75,
+      "minimum": -70.0,
+      "maximum": 12922.0,
+      "IQR": 1219.75,
+      "range": 12992.0
+    },
+    {
+      "kind": "small_airport",
+      "median": 830.0,
+      "q1": 308.0,
+      "q3": 1750.0,
+      "minimum": -1207.0,
+      "maximum": 13123.0,
+      "IQR": 1442.0,
+      "range": 14330.0
+    }
+  ],
+  "quantiles": {
+    "0.25": 207.25,
+    "0.5": 730.0,
+    "0.75": 1630.0
+  }
+}

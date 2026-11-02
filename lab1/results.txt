@@ -1,0 +1,10 @@
+[US-7831] Coral Airport
+  city: Coral
+  keywords: 2MI7
+  country: US
+  kind: closed
+  elevation_ft: 993.0
+  latitude: 43.350682
+  longitude: -85.386318
+  scheduled: false
+  url: https://ourairports.com/airports/US-7831/
